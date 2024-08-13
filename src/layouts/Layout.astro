@@ -37,4 +37,11 @@ const { description, title, disableIndexing = false } = Astro.props;
     font-family: system-ui, sans-serif;
     background: #13151a;
   }
+  a {
+    color: rgb(var(--accent-dark));
+    transition: color 0.5s ease;
+  }
+  a:hover {
+    color: rgb(var(--accent-light));
+  }
 </style>
