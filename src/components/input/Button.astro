@@ -1,0 +1,69 @@
+---
+interface Props {
+    /**
+     * The label of the button.
+     *
+     * This is the text that is written on the button.
+     */
+    label: string;
+    /**
+     * If the button can be interacted with.
+     *
+     * If true, the button will do nothing when the user clicks it. This also
+     * changes the styling of the button to make the state obvious visually.
+     *
+     * @defaultValue false
+     */
+    disabled?: boolean;
+    /**
+     * The priority of the button.
+     *
+     * Acts as a preset for visual styling of the button. This is useful
+     * when the same screen requires multiple buttons, as priority can be
+     * visually communicated through the button type.
+     *
+     * @defaultValue "primary"
+     */
+    priority?: "primary";
+    /**
+     * The behavior of the button when it is pressed.
+     *
+     * Changes how the button reacts to user input:
+     * - `submit` - submits the form data to the server when located within a form
+     * - `reset` - resets the form data to its initial state when located within a form
+     * - `button` - does nothing, may be used to trigger custom behavior with JavaScript.
+     *
+     * @defaultValue "button"
+     */
+    type?: "submit" | "reset" | "button";
+}
+
+const {
+    label,
+    disabled = false,
+    priority = "primary",
+    type = "button",
+} = Astro.props;
+---
+
+<button class={priority} type={type} disabled={disabled}>
+    {label}
+</button>
+<style>
+    button {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 4rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .primary {
+        background-color: rgb(var(--accent-dark));
+        border-color: black;
+        transition: background-color 0.5s ease;
+    }
+    .primary:hover {
+        background-color: rgb(var(--accent-light));
+    }
+</style>

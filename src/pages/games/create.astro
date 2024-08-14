@@ -2,6 +2,7 @@
 import { db, Game } from "astro:db";
 
 import Layout from "../../layouts/Layout.astro";
+import Button from "../../components/input/Button.astro";
 import TextInput from "../../components/input/TextInput.astro";
 
 if (Astro.request.method === "POST") {
@@ -36,6 +37,6 @@ if (Astro.request.method === "POST") {
         <TextInput label="Short Name" name="shortName" required />
         <TextInput label="URL Slug" name="slug" />
         <TextInput label="Cover URL" name="coverUrl" type="url" />
-        <button type="submit">Submit</button>
+        <Button label="Create Game" type="submit" />
     </form>
 </Layout>
