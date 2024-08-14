@@ -1,8 +1,8 @@
 ---
 interface Props {
-  title: string;
-  description: string;
-  disableIndexing?: boolean;
+    title: string;
+    description: string;
+    disableIndexing?: boolean;
 }
 
 const { description, title, disableIndexing = false } = Astro.props;
@@ -10,38 +10,38 @@ const { description, title, disableIndexing = false } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
-    {disableIndexing && <meta name="robots" content="noindex" />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
-  </head>
-  <body>
-    <slot />
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width" />
+        {disableIndexing && <meta name="robots" content="noindex" />}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{title}</title>
+    </head>
+    <body>
+        <slot />
+    </body>
 </html>
 <style is:global>
-  :root {
-    --accent-dark: 255, 212, 0;
-    --accent-light: 255, 250, 229;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent-dark)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
-  }
-  html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-  }
-  a {
-    color: rgb(var(--accent-dark));
-    transition: color 0.5s ease;
-  }
-  a:hover {
-    color: rgb(var(--accent-light));
-  }
+    :root {
+        --accent-dark: 255, 212, 0;
+        --accent-light: 255, 250, 229;
+        --accent-gradient: linear-gradient(
+            45deg,
+            rgb(var(--accent-dark)),
+            rgb(var(--accent-light)) 30%,
+            white 60%
+        );
+    }
+    html {
+        font-family: system-ui, sans-serif;
+        background: #13151a;
+    }
+    a {
+        color: rgb(var(--accent-dark));
+        transition: color 0.5s ease;
+    }
+    a:hover {
+        color: rgb(var(--accent-light));
+    }
 </style>
