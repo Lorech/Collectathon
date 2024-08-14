@@ -6,7 +6,7 @@ const Game = defineTable({
     name: column.text(),
     shortName: column.text(),
     slug: column.text(),
-    logoUrl: column.text({ optional: true }),
+    coverUrl: column.text({ optional: true }),
   },
 });
 

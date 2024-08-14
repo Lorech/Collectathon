@@ -5,17 +5,17 @@ import CoverPlaceholder from "../../images/CoverPlaceholder.svg";
 interface Props {
     name: string;
     slug: string;
-    logoUrl: string | null;
+    coverUrl: string | null;
 }
 
-const { name, slug, logoUrl } = Astro.props;
+const { name, slug, coverUrl } = Astro.props;
 ---
 
 <a href={`/games/${slug}`} class="card">
     {
-        logoUrl ? (
+        coverUrl ? (
             <Image
-                src={logoUrl}
+                src={coverUrl}
                 alt={`Cover art for ${name}.`}
                 width={264}
                 height={374}

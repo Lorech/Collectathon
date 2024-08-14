@@ -10,19 +10,19 @@ if (Astro.request.method === "POST") {
     const name = formData.get("name");
     const shortName = formData.get("shortName");
     const slug = formData.get("slug");
-    const logoUrl = formData.get("logoUrl");
+    const coverUrl = formData.get("coverUrl");
 
     if (
         typeof name === "string" &&
         typeof shortName === "string" &&
         typeof slug === "string" &&
-        typeof logoUrl === "string"
+        typeof coverUrl === "string"
     ) {
         await db.insert(Game).values({
             name,
             shortName,
             slug: slug || shortName.toLowerCase().replaceAll(" ", "-"),
-            logoUrl,
+            coverUrl,
         });
 
         Astro.redirect("/");
@@ -35,7 +35,7 @@ if (Astro.request.method === "POST") {
         <TextInput label="Name" name="name" required />
         <TextInput label="Short Name" name="shortName" required />
         <TextInput label="URL Slug" name="slug" />
-        <TextInput label="Logo URL" name="logoUrl" type="url" />
+        <TextInput label="Cover URL" name="coverUrl" type="url" />
         <button type="submit">Submit</button>
     </form>
 </Layout>
