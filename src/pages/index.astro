@@ -1,14 +1,31 @@
 ---
+import { db, Game } from "astro:db";
+
+import GameCard from "../components/game/GameCard.astro";
 import Layout from "../layouts/Layout.astro";
+
+const games = await db.select().from(Game);
 ---
 
 <Layout title="Collectathon" description="Welcome to the Collectathon!">
     <main>
-        <h1>Welcome to the <span class="text-gradient">Collectathon</span></h1>
-        <p class="error">
-            No games found yet.{" "}
-            <a href="/games/create">Would you like to add one?</a>
-        </p>
+        <h1>
+            Welcome to the<br /><span class="text-gradient">Collectathon</span>
+        </h1>
+        {
+            games.length ? (
+                <div class="games">
+                    {games.map((game) => (
+                        <GameCard {...game} />
+                    ))}
+                </div>
+            ) : (
+                <p class="error">
+                    No games found yet.{" "}
+                    <a href="/games/create">Would you like to add one?</a>
+                </p>
+            )
+        }
         <a href="/games/create" class="add">
             <span class="symbol">+</span>
         </a>
@@ -17,9 +34,10 @@ import Layout from "../layouts/Layout.astro";
 
 <style>
     main {
-        max-width: 800px;
+        min-width: calc(3 * --tile-size + 3 * --tile-gap);
+        max-width: calc(6 * --tile-size + 6 * --tile-gap);
+        padding: 2rem;
         margin: auto;
-        padding: 1rem;
         color: white;
         line-height: 1.6;
     }
@@ -36,6 +54,11 @@ import Layout from "../layouts/Layout.astro";
         -webkit-text-fill-color: transparent;
         background-size: 300%;
         background-position: 0%;
+    }
+    .games {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(--tile-size, 1fr));
+        gap: --tile-gap;
     }
     .error {
         font-size: 1.25rem;

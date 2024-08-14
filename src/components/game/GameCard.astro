@@ -1,0 +1,63 @@
+---
+import { Image } from "astro:assets";
+import CoverPlaceholder from "../../images/CoverPlaceholder.svg";
+
+interface Props {
+    name: string;
+    slug: string;
+    logoUrl: string | null;
+}
+
+const { name, slug, logoUrl } = Astro.props;
+---
+
+<a href={`/games/${slug}`} class="card">
+    {
+        logoUrl ? (
+            <Image
+                src={logoUrl}
+                alt={`Cover art for ${name}.`}
+                width={264}
+                height={374}
+                loading={"eager"}
+            />
+        ) : (
+            <Image
+                src={CoverPlaceholder}
+                alt="A placeholder for a cover."
+                width={264}
+                height={374}
+                loading={"eager"}
+            />
+        )
+    }
+    <p class="title">{name}</p>
+</a>
+
+<style>
+    a.card {
+        text-decoration: none;
+        transition: background-color 0.5s ease;
+    }
+    .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 10rem;
+        padding: 1rem;
+        border: 1px solid rgb(var(--accent-light));
+        border-radius: 16px;
+    }
+    .card:hover {
+        background-color: rgb(var(--accent-light));
+    }
+    img {
+        max-width: 10rem;
+        height: calc(374 / 264 * 10rem);
+    }
+    .title {
+        color: rgb(var(--accent-dark));
+        text-align: center;
+        text-decoration: none;
+    }
+</style>

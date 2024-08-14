@@ -1,5 +1,48 @@
 ---
+import { db, Game } from "astro:db";
+
 import Layout from "../../layouts/Layout.astro";
+
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+
+    const name = formData.get("name");
+    const shortName = formData.get("shortName");
+    const slug = formData.get("slug");
+    const logoUrl = formData.get("logoUrl");
+
+    if (
+        typeof name === "string" &&
+        typeof shortName === "string" &&
+        typeof slug === "string" &&
+        typeof logoUrl === "string"
+    ) {
+        await db.insert(Game).values({
+            name,
+            shortName,
+            slug: slug || shortName.toLowerCase().replaceAll(" ", "-"),
+            logoUrl,
+        });
+
+        Astro.redirect("/");
+    }
+}
 ---
 
-<Layout title="Create a game" description="The form for creating a new game." />
+<Layout title="Create a game" description="The form for creating a new game.">
+    <form method="POST">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="shortName">Short Name</label>
+        <input type="text" id="shortName" name="shortName" required />
+
+        <label for="slug">Slug</label>
+        <input type="text" id="slug" name="slug" />
+
+        <label for="logoUrl">Logo URL</label>
+        <input type="text" id="logoUrl" name="logoUrl" />
+
+        <button type="submit">Submit</button>
+    </form>
+</Layout>
