@@ -34,8 +34,8 @@ const games = await db.select().from(Game);
 
 <style>
     main {
-        min-width: calc(3 * --tile-size + 3 * --tile-gap);
-        max-width: calc(6 * --tile-size + 6 * --tile-gap);
+        min-width: calc(3 * var(--tile-size) + 3 * var(--tile-gap));
+        max-width: calc(6 * var(--tile-size) + 6 * var(--tile-gap));
         padding: 2rem;
         margin: auto;
         color: white;
@@ -57,8 +57,8 @@ const games = await db.select().from(Game);
     }
     .games {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(--tile-size, 1fr));
-        gap: --tile-gap;
+        grid-template-columns: repeat(auto-fill, minmax(var(--tile-size), 1fr));
+        gap: var(--tile-gap);
     }
     .error {
         font-size: 1.25rem;
