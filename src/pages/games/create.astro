@@ -2,6 +2,7 @@
 import { db, Game } from "astro:db";
 
 import Layout from "../../layouts/Layout.astro";
+import TextInput from "../../components/input/TextInput.astro";
 
 if (Astro.request.method === "POST") {
     const formData = await Astro.request.formData();
@@ -31,18 +32,10 @@ if (Astro.request.method === "POST") {
 
 <Layout title="Create a game" description="The form for creating a new game.">
     <form method="POST">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required />
-
-        <label for="shortName">Short Name</label>
-        <input type="text" id="shortName" name="shortName" required />
-
-        <label for="slug">Slug</label>
-        <input type="text" id="slug" name="slug" />
-
-        <label for="logoUrl">Logo URL</label>
-        <input type="text" id="logoUrl" name="logoUrl" />
-
+        <TextInput label="Name" name="name" required />
+        <TextInput label="Short Name" name="shortName" required />
+        <TextInput label="URL Slug" name="slug" />
+        <TextInput label="Logo URL" name="logoUrl" type="url" />
         <button type="submit">Submit</button>
     </form>
 </Layout>

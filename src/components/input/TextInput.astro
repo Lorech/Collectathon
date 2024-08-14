@@ -1,0 +1,74 @@
+---
+interface Props {
+    /**
+     * The internal name of the field.
+     *
+     * This is used to identify the field between other fields, as well as
+     * to get the data from the field when processing a form.
+     */
+    name: string;
+    /**
+     * The label to display for the field.
+     *
+     * This can help identify the field to the user.
+     *
+     * @defaultValue undefined
+     */
+    label?: string;
+    /**
+     * If the field is mandatory or not.
+     *
+     * If true, the field will be visually marked as required, and the
+     * form will error if the field does not have a value when submitted.
+     *
+     * @defaultValue false
+     */
+    required?: boolean;
+    /**
+     * The type of input that this is.
+     *
+     * This can fine-tune the input field to provide a better user
+     * experience by leveraging correct keyboards on mobile devices, and
+     * automatic browser validation for complex field types.
+     *
+     * @defaultValue "text"
+     */
+    type?: "email" | "number" | "password" | "tel" | "text" | "url";
+}
+
+const { name, label, required = false, type = "text" } = Astro.props;
+---
+
+<div class="wrapper">
+    {
+        label && (
+            <label for={name} class={(required && "required") || ""}>
+                {label}
+            </label>
+        )
+    }
+    <input type={type} id={name} name={name} required={required} />
+</div>
+<style>
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    label {
+        margin-left: 16px;
+        font-size: 0.875rem;
+        color: #d6d6d6;
+        text-transform: uppercase;
+    }
+    input {
+        padding: 0.75rem 1.25rem;
+        border: 1px solid #d6d6d6;
+        border-radius: 2rem;
+        font-size: 1rem;
+    }
+    .required:after {
+        content: "*";
+        color: #ff0000;
+    }
+</style>
