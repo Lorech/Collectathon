@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import CoverPlaceholder from "../../images/CoverPlaceholder.svg";
+import Button from "../input/Button.astro";
 
 interface Props {
     name: string;
@@ -11,27 +12,42 @@ interface Props {
 const { name, slug, coverUrl } = Astro.props;
 ---
 
-<a href={`/games/${slug}`} class="card">
-    {
-        coverUrl ? (
-            <Image
-                src={coverUrl}
-                alt={`Cover art for ${name}.`}
-                width={264}
-                height={374}
-                loading={"eager"}
-            />
-        ) : (
-            <Image
-                src={CoverPlaceholder}
-                alt="A placeholder for a cover."
-                width={264}
-                height={374}
-                loading={"eager"}
-            />
-        )
-    }
-    <p class="title">{name}</p>
+<a href={`/games/${slug}`} class="card" data-game-slug={slug}>
+    <div class="actions">
+        <Button
+            label="Edit"
+            name="edit"
+            style="margin-top: 0; border: none; border-radius: 0"
+        />
+        <Button
+            label="Delete"
+            name="delete"
+            priority="destructive"
+            style="margin-top: 0; border: none; border-radius: 0"
+        />
+    </div>
+    <div class="body">
+        {
+            coverUrl ? (
+                <Image
+                    src={coverUrl}
+                    alt={`Cover art for ${name}.`}
+                    width={264}
+                    height={374}
+                    loading={"eager"}
+                />
+            ) : (
+                <Image
+                    src={CoverPlaceholder}
+                    alt="A placeholder for a cover."
+                    width={264}
+                    height={374}
+                    loading={"eager"}
+                />
+            )
+        }
+        <p class="title">{name}</p>
+    </div>
 </a>
 
 <style>
@@ -40,16 +56,21 @@ const { name, slug, coverUrl } = Astro.props;
         transition: background-color 0.5s ease;
     }
     .card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        position: relative;
         width: 10rem;
+        height: 20rem;
         padding: 1rem;
         border: 1px solid rgb(var(--accent-light));
         border-radius: 16px;
+        overflow: hidden;
     }
     .card:hover {
         background-color: rgb(var(--accent-light));
+    }
+    .body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     img {
         max-width: 10rem;
@@ -60,4 +81,50 @@ const { name, slug, coverUrl } = Astro.props;
         text-align: center;
         text-decoration: none;
     }
+    .actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        position: absolute;
+        width: 100%;
+        margin: -1rem;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
 </style>
+
+<script>
+    const cards = document.querySelectorAll("a.card");
+    cards.forEach((card) => {
+        let timeout;
+        const actions = card.querySelector("div.actions");
+        const slug = card.getAttribute("data-game-slug");
+        const editButton = actions.querySelector("button[name=edit]");
+        const deleteButton = actions.querySelector("button[name=delete]");
+
+        // Add event listeners to show and hide the actions
+        card.addEventListener("mouseover", () => {
+            clearTimeout(timeout); // Clear any previous timeouts to prevent flickering.
+            timeout = setTimeout(() => {
+                actions.style.opacity = "1";
+            }, 500);
+        });
+        card.addEventListener("mouseleave", () => {
+            clearTimeout(timeout);
+            actions.style.opacity = "0";
+        });
+
+        // Add event listeners to perform the actions.
+        editButton.addEventListener("click", (event) => {
+            if (actions.style.opacity === "1") {
+                event.preventDefault();
+                window.location.href = `/games/${slug}/edit`;
+            }
+        });
+        deleteButton.addEventListener("click", (event) => {
+            if (actions.style.opacity === "1") {
+                event.preventDefault();
+                window.location.href = `/games/${slug}/delete`;
+            }
+        });
+    });
+</script>
