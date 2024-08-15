@@ -7,6 +7,19 @@ interface Props {
      */
     label: string;
     /**
+     * A name to uniquely identify the button.
+     *
+     * This should be specified to link the button component with a client-side
+     * action when the button is clicked.
+     */
+    name?: string;
+    /**
+     * Additional styling to apply to the button.
+     *
+     * This can be used to apply additional styles or override existing ones.
+     */
+    style?: string;
+    /**
      * If the button can be interacted with.
      *
      * If true, the button will do nothing when the user clicks it. This also
@@ -40,13 +53,21 @@ interface Props {
 
 const {
     label,
+    name,
+    style,
     disabled = false,
     priority = "primary",
     type = "button",
 } = Astro.props;
 ---
 
-<button class={priority} type={type} disabled={disabled}>
+<button
+    name={name}
+    type={type}
+    disabled={disabled}
+    class={priority}
+    style={style}
+>
     {label}
 </button>
 <style>
