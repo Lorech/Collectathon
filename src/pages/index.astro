@@ -22,11 +22,11 @@ const games = await db.select().from(Game);
             ) : (
                 <p class="error">
                     No games found yet.{" "}
-                    <a href="/games/create">Would you like to add one?</a>
+                    <a href="/create">Would you like to add one?</a>
                 </p>
             )
         }
-        <a href="/games/create" class="add">
+        <a href="/create" class="add">
             <span class="symbol">+</span>
         </a>
     </main>

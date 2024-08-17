@@ -12,7 +12,7 @@ interface Props {
 const { name, slug, coverUrl } = Astro.props;
 ---
 
-<a href={`/games/${slug}`} class="card" data-game-slug={slug}>
+<a href={`/${slug}`} class="card" data-game-slug={slug}>
     <div class="actions">
         <Button
             label="Edit"
@@ -118,13 +118,13 @@ const { name, slug, coverUrl } = Astro.props;
         editButton.addEventListener("click", (event) => {
             if (actions.style.opacity === "1") {
                 event.preventDefault();
-                window.location.href = `/games/${slug}/edit`;
+                window.location.href = `/${slug}/edit`;
             }
         });
         deleteButton.addEventListener("click", (event) => {
             if (actions.style.opacity === "1") {
                 event.preventDefault();
-                window.location.href = `/games/${slug}/delete`;
+                window.location.href = `/${slug}/delete`;
             }
         });
     });

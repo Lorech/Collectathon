@@ -1,9 +1,8 @@
 ---
 import { db, Game } from "astro:db";
-
-import Layout from "../../layouts/Layout.astro";
-import Button from "../../components/input/Button.astro";
-import TextInput from "../../components/input/TextInput.astro";
+import Button from "../components/input/Button.astro";
+import TextInput from "../components/input/TextInput.astro";
+import Layout from "../layouts/Layout.astro";
 
 if (Astro.request.method === "POST") {
     const formData = await Astro.request.formData();
